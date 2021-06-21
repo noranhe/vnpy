@@ -204,11 +204,19 @@ C:\Users\Administrator\strategies
 
 ### 添加策略
 
-在左侧的下拉框中选择要交易的策略名称，，如BasicSpreadStrategy，点击【添加策略】按钮，即可弹出以下界面：
+用户可以基于编写好的价差策略模板（类）来创建不同的策略实例（对象）。
+
+在左侧的下拉框中选择要交易的策略名称（如BasicSpreadStrategy），如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/19.png)
+
+请注意，显示的策略名称是**策略类**（驼峰式命名）的名字，而不是策略文件（下划线模式命名）的名字。
+
+选择好策略类之后，点击【添加策略】，会弹出添加策略对话框，如下图所示：
 
 ![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/11.png)
 
-其中，相关参数解释如下：
+在创建策略实例时，需要配置相关参数，各参数要求如下：
 
 - 实例名称
   - 用户自定义的策略实例名称，这里是test；
@@ -238,7 +246,7 @@ C:\Users\Administrator\strategies
     - interval
       - 时间间隔，即每隔一段时间，会发出委托。
 
-参数配置完成后，点击【添加】按钮，则开始创建策略实例。创建成功后可在右下角侧的策略监控组件中看到该策略实例，如下图所示：
+参数配置完成后，点击【添加】按钮，则开始创建策略实例。创建成功后可在右下角的策略监控组件中看到该策略实例，如下图所示：
 
 ![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/12.png)
 
@@ -248,19 +256,30 @@ C:\Users\Administrator\strategies
 
 策略实例创建成功后，该策略实例的配置信息会被保存到.vntrader文件夹下的spread_trading_strategy.json文件中。
 
+### 管理策略
 
-### 启动策略
+#### 初始化
 
-添加策略完毕，依次点击【初始化】和【启动】按钮即可启动策略。成功初始化和启动后，【日志】组件则会输出相应信息（请注意，策略启动并不代表算法启动，算法启动状态取决于策略逻辑），如下图所示：
+策略实例创建成功后，就可以对该实例进行初始化了。点击该策略实例下的【初始化】按钮，若初始化成功，则如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/23.png)
+
+可观察到此时该策略实例的【inited】状态已经为【True】。说明该策略实例已经调用过load_bar函数加载历史数据并完成初始化了。【trading】状态还是为【False】，说明此时该策略实例还不能开始自动交易。
+#### 启动
+
+策略实例初始化成功，【inited】状态为【True】时，才能启动该策略的自动交易功能。点击该策略实例下的【启动】按钮，即可启动该策略实例。成功启动后，【日志】组件则会输出相应信息（请注意，策略启动并不代表算法启动，算法启动状态取决于策略逻辑），如下图所示：
 
 ![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/13.png)
-
 
 此时，【算法】组件显示，test策略调用SpreadTaker算法，分别在600和-300的位子上挂上买入和卖出委托；由于实际价格没有达到这2个阈值，故委托一直挂着，其委托状态为【未成交】。
 
 ![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/14.png)
 
-### 停止策略
+【策略】组件中【trading】字段从【True】变为【False】，如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/24.png)
+
+#### 停止
 
 若要停止策略，点击策略实例下的【停止】按钮，即可停止该策略实例的自动交易。【日志】组件输出“算法已停止”，如下图所示：
 
@@ -272,24 +291,63 @@ C:\Users\Administrator\strategies
 
 【策略】组件中【trading】字段从【True】变为【False】，如下图所示：
 
-![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/17.png)
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/29.png)
 
-### 编辑策略
+#### 编辑
 
 如果创建策略实例之后，想要编辑某个策略实例的参数（若已启动策略，需要先点击策略实例下的【停止】按钮，停止策略），可以点击该策略实例下的【编辑】按钮，会弹出参数编辑对话框，以供修改策略参数，如下图所示：
 
 ![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/18.png)
 
-编辑完策略参数之后，点击下方的【确定】按钮，相应的修改会立即更新在参数表格中。
+编辑完策略参数之后，点击下方的【确定】按钮，相应的修改会立即更新在参数表格中，如下图所示：
 
-### 移除策略
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/30.png)
 
-如果创建策略实例之后，想要移除某个策略实例（若已启动策略，需要先点击策略实例下的【停止】按钮，停止策略），可以点击该策略实例下的【移除】按钮。移除成功后，图形界面左侧的策略监控组件中将不会再显示该策略实例的信息。
+但是策略实例的交易合约代码无法修改，同时修改完后也不会重新执行初始化操作。也请注意，此时修改的只是.vntrader文件夹下spread_trading_strategy.json文件中该策略实例的参数值，并没有修改原策略文件下的参数。
 
+修改前，json文件如下图所示：
 
-## 批量操作
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/26-1.png)
+
+修改后，json文件如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/27-1.png)
+
+若盘中编辑后想要再次启动策略，点击策略实例下的【启动】按钮即可再次启动该策略实例，如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/28.png)
+
+#### 移除
+
+如果创建策略实例之后，想要移除某个策略实例（若已启动策略，需要先点击策略实例下的【停止】按钮，停止策略），可以点击该策略实例下的【移除】按钮。移除成功后，图形界面右下角的策略监控组件中将不会再显示该策略实例的信息。如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/34.png)
+
+此时.vntrader文件夹下的spread_trading_strategy.json文件也移除了该策略实例的配置信息。
+
+### 批量操作
 
 在策略经过充分测试，实盘运行较为稳定，不需要经常进行调整的情况下，如果有多个需要运行的价差策略实例，可以使用界面左下角的【全部初始化】、【全部启动】和【全部停止】功能来执行盘前批量初始化、启动策略实例以及盘后批量停止策略实例的操作。
+
+#### 全部初始化
+
+在所有策略实例创建成功后，点击左下角的【全部初始化】按钮，则可批量初始化策略实例，如下图所示：
+
+点击【全部初始化】后，如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/31.png)
+
+#### 全部启动
+
+在所有策略实例初始化成功后，点击左下角的【全部启动】按钮，则可批量启动策略实例，如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/32.png)
+
+#### 全部停止
+
+在所有策略实例启动成功后，点击左下角的【全部停止】按钮，则可批量停止策略实例，如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/spread_trading/33.png)
 
 
 ## 价差交易策略模板（SpreadStrategyTemplate）
