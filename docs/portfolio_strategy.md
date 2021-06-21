@@ -60,7 +60,7 @@ C:\Users\Administrator\strategies
 
 ## 添加策略
 
-用户可以基于编写好的组合策略模板（类）来创建不同的策略实例（对象）。策略实例的好处在于，同一个策略可以同时去交易多个品种合约，并且每个实例的参数可以是不同的。
+用户可以基于编写好的组合策略模板（类）来创建不同的策略实例（对象）。
 
 在左上角的下拉框中选择要交易的策略名称，如下图所示：
 
@@ -154,6 +154,15 @@ C:\Users\Administrator\strategies
 
 但是策略实例的交易合约代码无法修改，同时修改完后也不会重新执行初始化操作。也请注意，此时修改的只是.vntrader文件夹下porfolio_strategy_setting.json文件中该策略实例的参数值，并没有修改原策略文件下的参数。
 
+修改前，json文件如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/portfolio_strategy/18.png)
+
+
+修改后，json文件如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/portfolio_strategy/17.png)
+
 若盘中编辑后想要再次启动策略，点击策略实例下的【启动】按钮即可再次启动该策略实例。
 
 ### 移除
@@ -210,6 +219,25 @@ C:\Users\Administrator\strategies
 
 在策略经过充分测试，实盘运行较为稳定，不需要经常进行调整的情况下，如果有多个需要运行的组合策略实例，可以使用界面右上角的【全部初始化】、【全部启动】和【全部停止】功能来执行盘前批量初始化、启动策略实例以及盘后批量停止策略实例的操作。
 
+### 全部初始化
+
+在所有策略实例创建成功后，点击右上角的【全部初始化】按钮，则可批量初始化策略实例，如下图所示：
+
+点击【全部初始化】后，如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/portfolio_strategy/19.png)
+
+### 全部启动
+
+在所有策略实例初始化成功后，点击右上角的【全部启动】按钮，则可批量启动策略实例，如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/portfolio_strategy/20.png)
+
+### 全部停止
+
+在所有策略实例启动成功后，点击右上角的【全部停止】按钮，则可批量停止策略实例，如下图所示：
+
+![](https://vnpy-doc.oss-cn-shanghai.aliyuncs.com/portfolio_strategy/21.png)
 
 ## 多合约组合策略模板（StrategyTemplate）
 
