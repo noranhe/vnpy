@@ -485,8 +485,12 @@ StrategyTemplate中以on开头的函数称为回调函数，在编写策略的�
         for vt_symbol, bar in bars.items():
             am: ArrayManager = self.ams[vt_symbol]
             am.update_bar(bar)
+
+        for vt_symbol, bar in bars.items():
+            am: ArrayManager = self.ams[vt_symbol]
             if not am.inited:
                 return
+
             atr_array = am.atr(self.atr_window, array=True)
             self.atr_data[vt_symbol] = atr_array[-1]
             self.atr_ma[vt_symbol] = atr_array[-self.atr_ma_window:].mean()
