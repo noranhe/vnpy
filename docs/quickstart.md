@@ -209,8 +209,8 @@ C:\users\administrator.vntrader\log
 ### RQData数据服务
 
 以rqdata为前缀的参数用于配置RQData数据服务。
-- rqdata.username: 米筐登录账号
-- rqdata.password: RQData的license
+- rqdata.username: "license"
+- rqdata.password: 收到的RQData的license的字符
 
 购买RQData后（或者申请试用账号），会获得license文件，将license文件中的内容填入字段即可，如下图所示：
 
